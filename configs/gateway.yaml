@@ -1,0 +1,13 @@
+gateway:
+  port: 8080
+  rate_limit:
+    requests_per_second: 5000
+    burst: 1000
+  circuit_breaker:
+    failure_threshold: 5
+    recovery_timeout_sec: 15
+  routes:
+    - path: /api/v1/users
+      upstream: "http://user-service:8081"
+    - path: /api/v1/orders
+      upstream: "http://order-service:8082"
