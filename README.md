@@ -1,30 +1,10 @@
-# Resilient Circuit Breaker Gateway 🚪
+# Resilient Circuit Breaker Gateway 🛡️⚡
 
-An ultra-fast, resilient API edge reverse-proxy and service gateway written in Go, incorporating adaptive token-bucket rate limiting and finite-state circuit breakers to protect downstream backends from cascading outages.
+A blazing-fast reverse-proxy edge gateway engineered in Go, featuring a 3-state finite state machine circuit breaker, lock-free sliding-window rate limiting, and zero-downtime health checking.
 
-## Architecture
-```
- [ Client Ingress ]
-        │
-        ▼
- ┌────────────────────────────────────────┐
- │   Resilient Circuit Breaker Gateway    │
- │   ┌────────────────────────────────┐   │
- │   │ Token Bucket Rate Limiter      │   │
- │   └───────────────┬────────────────┘   │
- │                   ▼                    │
- │   ┌────────────────────────────────┐   │
- │   │ 3-State Circuit Breaker        │   │
- │   │ (Closed / Open / Half-Open)    │   │
- │   └───────────────┬────────────────┘   │
- └───────────────────┼────────────────────┘
-                     ▼
-          [ Upstream Microservices ]
-```
-
-## Performance
-- **Ingress Throughput:** 82,000 req/sec per core
-- **Proxy Latency Overhead:** 0.38ms p99
-- **Circuit Breaker State Transition:** < 50 nanoseconds
+## Key Features
+- **3-State Circuit Breaker:** CLOSED -> OPEN -> HALF_OPEN automatic fail-fast and healing.
+- **Microsecond Rate Limiting:** In-memory sliding window and distributed Redis token-bucket.
+- **Zero-Allocation Routing:** High-throughput reverse proxying with OpenTelemetry hooks.
 
 Crafted by **Md Zubair** ([@MDzubair933](https://github.com/MDzubair933)) — **Zubair Systems**.
